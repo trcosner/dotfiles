@@ -1,0 +1,24 @@
+[user]
+    name = Tyler Cosner
+    email = trconer@gmail.com
+
+[core]
+    editor = nvim
+    autocrlf = input
+    excludesFile = ~/.gitignore_global
+
+[alias]
+    st = status
+    co = checkout
+    br = branch
+    cm = commit
+    lg = log --oneline --graph --decorate
+    unstage = reset HEAD --
+    last = log -1 HEAD
+
+[push]
+    default = simple
+
+[credential]
+    helper = osxkeychain
+
