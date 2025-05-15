@@ -1,4 +1,5 @@
-# utils.sh
+#!/usr/bin/env bash
+
 print_success() {
   local GREEN="\033[0;32m"
   local NC="\033[0m"

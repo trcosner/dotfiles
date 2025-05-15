@@ -1,5 +1,3 @@
-local wezterm = require 'wezterm'
-
 function file_exists(name)
   local f = io.open(name, "r")
   if f then
@@ -25,16 +23,32 @@ function find_zsh()
   return "/bin/zsh"  -- Fallback to system Zsh if not found
 end
 
-return {
-  -- Launch Menu
-  launch_menu = {
+local wezterm = require 'wezterm'
+
+local config = wezterm.config_builder()
+config.font=wezterm.font("Hasklug Nerd Font")
+config.font_size = 19
+config.enable_tab_bar = false
+config.launch_menu = {
     {label="Zsh", args={find_zsh(), "-l"}},
     {label="Bash", args={"/bin/bash", "-l"}},
     {label="Neovim", args={"nvim"}},
     {label="Htop", args={"htop"}},
-  },
+  }
+config.default_prog = {find_zsh(), "-l"}
+config.window_decorations = "RESIZE"
+config.window_background_opacity = 0.9
+config.macos_window_background_blur = 10
 
-  -- Shell Configuration
-  default_prog = {find_zsh(), "-l"},
+config.colors = {
+	foreground = "#CBE0F0",
+	background = "#011423",
+	cursor_bg = "#47FF9C",
+	cursor_border = "#47FF9C",
+	cursor_fg = "#011423",
+	selection_bg = "#033259",
+	selection_fg = "#CBE0F0",
+	ansi = { "#214969", "#E52E2E", "#44FFB1", "#FFE073", "#0FC5ED", "#a277ff", "#24EAF7", "#24EAF7" },
+	brights = { "#214969", "#E52E2E", "#44FFB1", "#FFE073", "#A277FF", "#a277ff", "#24EAF7", "#24EAF7" },
 }
-
+return config

@@ -2,7 +2,6 @@
 
 set -e
 
-# Source utility functions
 source ./utils.sh
 
 print_success "Checking for Xcode Command Line Tools..."

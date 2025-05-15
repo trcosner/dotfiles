@@ -1,7 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-# Import utility functions
-source "$(dirname "$0")/utils.sh"
+source ./utils.sh
+
+# SSH Key Path
+SSH_KEY_PATH="${HOME}/.ssh/id_ed25519"
 
 # Cleanup function to remove created files on critical failure
 cleanup() {
@@ -13,14 +15,20 @@ cleanup() {
   exit 1
 }
 
+# Check if GitHub SSH is already set up
+check_github_ssh_setup() {
+  if [ -f "$SSH_KEY_PATH" ] && ssh -T git@github.com 2>&1 | grep -q "successfully authenticated"; then
+    print_success "GitHub SSH is already set up and working. Exiting..."
+    exit 0
+  fi
+}
+
 # Prompt for GitHub login if not authenticated
 prompt_for_github_login() {
   print_error "GitHub CLI is not authenticated."
   print_success "You need to log in to continue. Please follow the prompts:"
-  # Prompt for manual login and check success
   if gh auth login; then
     print_success "GitHub authentication successful."
-    # Refresh permissions to ensure correct scopes
     print_success "Refreshing GitHub token to include public key management permissions..."
     if gh auth refresh -h github.com -s admin:public_key,write:public_key; then
       print_success "Token refreshed with required scopes."
@@ -36,15 +44,21 @@ prompt_for_github_login() {
 
 # Prompt for SSH key name
 prompt_for_ssh_key_name() {
-  print_success "Enter a name for your SSH key (default: TCMbpM1-16):"
-  read -r SSH_KEY_NAME
-  if [ -z "$SSH_KEY_NAME" ]; then
-    SSH_KEY_NAME="TCMbpM1-16"
-    print_success "Using default SSH key name: $SSH_KEY_NAME"
-  else
-    print_success "Using custom SSH key name: $SSH_KEY_NAME"
-  fi
+  while true; do
+    print_success "Enter a name for your SSH key (required):"
+    read -r SSH_KEY_NAME
+    if [ -n "$SSH_KEY_NAME" ]; then
+      print_success "Using custom SSH key name: $SSH_KEY_NAME"
+      break
+    else
+      print_error "SSH key name cannot be empty. Please enter a valid name."
+    fi
+  done
 }
+
+
+# Check GitHub SSH setup before proceeding
+check_github_ssh_setup
 
 # Ensure Homebrew is installed
 if ! command -v brew &> /dev/null; then
@@ -52,7 +66,7 @@ if ! command -v brew &> /dev/null; then
   exit 1
 fi
 
-# Install Git
+# Install Git if not present
 if ! command -v git &> /dev/null; then
   print_success "Installing Git..."
   brew install git || { print_error "Failed to install Git."; cleanup; }
@@ -77,9 +91,6 @@ fi
 
 # Prompt for SSH key name
 prompt_for_ssh_key_name
-
-# SSH Key Setup
-SSH_KEY_PATH="${HOME}/.ssh/id_ed25519"
 
 # Generate SSH key if it doesn't already exist
 if [ ! -f "$SSH_KEY_PATH" ]; then
@@ -127,10 +138,4 @@ SSH_OUTPUT=$(ssh -T git@github.com 2>&1)
 if echo "$SSH_OUTPUT" | grep -q "successfully authenticated"; then
   print_success "SSH connection to GitHub successful!"
 else
-  print_error "Failed to connect to GitHub via SSH. Output was: $SSH_OUTPUT"
-  exit 1
-fi
-
-
-print_success "GitHub SSH setup complete!"
-
+  print_error "Failed to connect to GitHub via SSH. Output was_

@@ -2,7 +2,6 @@
 
 set -e
 
-# Source utility functions
 source ./utils.sh
 
 print_success "Checking for Zsh..."
@@ -34,6 +33,56 @@ fi
 
 print_success "Symlinking Zsh configuration..."
 ln -sf "$ZSH_CONFIG_DIR/.zshrc" "$HOME/.zshrc"
+
+print_success "Installing zsh-autosuggestions and zsh-syntax-highlighting..."
+
+# Install zsh-autosuggestions
+if ! brew list zsh-autosuggestions &> /dev/null; then
+  if brew install zsh-autosuggestions; then
+    print_success "zsh-autosuggestions installed successfully."
+  else
+    print_error "Failed to install zsh-autosuggestions."
+    exit 1
+  fi
+else
+  print_success "zsh-autosuggestions already installed."
+fi
+
+# Install zsh-syntax-highlighting
+if ! brew list zsh-syntax-highlighting &> /dev/null; then
+  if brew install zsh-syntax-highlighting; then
+    print_success "zsh-syntax-highlighting installed successfully."
+  else
+    print_error "Failed to install zsh-syntax-highlighting."
+    exit 1
+  fi
+else
+  print_success "zsh-syntax-highlighting already installed."
+fi
+
+# Add plugin configuration to .zshrc
+ZSHRC_PATH="$HOME/.dotfiles/zsh/.zshrc"
+
+print_success "Adding plugin configuration to $ZSHRC_PATH..."
+if ! grep -q 'zsh-autosuggestions' "$ZSHRC_PATH"; then
+  echo 'if [ -f "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]; then' >> "$ZSHRC_PATH"
+  echo '  source "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"' >> "$ZSHRC_PATH"
+  echo 'fi' >> "$ZSHRC_PATH"
+  print_success "Added zsh-autosuggestions to $ZSHRC_PATH."
+else
+  print_success "zsh-autosuggestions already configured in $ZSHRC_PATH."
+fi
+
+if ! grep -q 'zsh-syntax-highlighting' "$ZSHRC_PATH"; then
+  echo 'if [ -f "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]; then' >> "$ZSHRC_PATH"
+  echo '  source "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"' >> "$ZSHRC_PATH"
+  echo 'fi' >> "$ZSHRC_PATH"
+  print_success "Added zsh-syntax-highlighting to $ZSHRC_PATH."
+else
+  print_success "zsh-syntax-highlighting already configured in $ZSHRC_PATH."
+fi
+
+print_success "Plugin setup complete! Restart your terminal or run 'exec zsh' to apply changes."
 
 print_success "Zsh setup complete!"
 

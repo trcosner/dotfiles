@@ -1,17 +1,8 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 set -e  # Exit on error
 
-# Import your custom print functions
 source ./utils.sh
-
-# Step 1: Check for Homebrew and install if not present
-if ! command -v brew &>/dev/null; then
-  print_error "Homebrew not found. Please install Homebrew first."
-  exit 1
-else
-  print_success "Homebrew found."
-fi
 
 # Step 2: Install WezTerm using Homebrew if not already installed
 if ! brew list --cask wezterm &>/dev/null; then

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 set -e
 
@@ -13,24 +13,32 @@ chmod +x \
 	check_github.sh \
 	check_wezterm.sh \
 	check_docker.sh	\
+	check_kubernetes.sh \
+	check_node.sh \
+	check_skaffold.sh \
+	check_terraform.sh \
+	check_nerdfonts.sh \
+	check_powerlevel10k.sh \
+	check_eza.sh \
+	check_zoxide.sh \
+	check_nvim.sh \
 	|| print_error
 
-# Check for Xcode Command Line Tools
 ./check_xcode.sh
-
-# Check for Homebrew
 ./check_homebrew.sh
-
-# Check for ZSH
 ./check_zsh.sh
-
-#Check for Git
 ./check_github.sh
-
-#Check for wezterm
 ./check_wezterm.sh
-
-#Check for docker
 ./check_docker.sh
+./check_kubernetes.sh
+./check_node.sh
+./check_skaffold.sh
+./check_terraform.sh
+./check_nerdfonts.sh
+./check_powerlevel10k.sh
+./check_eza.sh
+./check_zoxide.sh
+./check_nvim.sh
+
 print_success "Initial setup complete!"
 
