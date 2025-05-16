@@ -27,7 +27,7 @@ export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
 plugins=(git)
 source $ZSH/oh-my-zsh.sh
-
+alias vim="nvim"
 # Aliases for Kubernetes
 alias k="kubectl"
 alias kgp="kubectl get pods"
@@ -180,6 +180,28 @@ alias grep="rg"
 
 # Ripgrep alias for convenience
 alias grep="rg"
+
+# Ripgrep alias for convenience
+alias grep="rg"
+
+# Ripgrep alias for convenience
+alias grep="rg"
+
+# Ripgrep alias for convenience
+alias grep="rg"
+
+# Ripgrep alias for convenience
+alias grep="rg"
+
+# Ripgrep alias for convenience
+alias grep="rg"
+
+# Ripgrep alias for convenience
+alias grep="rg"
+
+# Ripgrep alias for convenience
+alias grep="rg"
+eval "$(starship init zsh)"
 
 # Ripgrep alias for convenience
 alias grep="rg"

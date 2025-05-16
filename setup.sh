@@ -26,6 +26,8 @@ chmod +x \
   check_lazygit.sh \
   check_raycast.sh \
   check_hyperkey.sh \
+  check_starship.sh \
+  check_tmux.sh \
   || print_error
 
 ./check_xcode.sh
@@ -47,6 +49,8 @@ chmod +x \
 ./check_lazygit.sh
 ./check_raycast.sh
 ./check_hyperkey.sh
+./check_starship.sh
+./check_tmux.sh
 
 print_success "Initial setup complete!"
 
