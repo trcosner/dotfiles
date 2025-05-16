@@ -147,3 +147,51 @@ alias grep="rg"
 
 # Ripgrep alias for convenience
 alias grep="rg"
+
+# Ripgrep alias for convenience
+alias grep="rg"
+
+# Ripgrep alias for convenience
+alias grep="rg"
+
+# Ripgrep alias for convenience
+alias grep="rg"
+
+# Ripgrep alias for convenience
+alias grep="rg"
+
+# Ripgrep alias for convenience
+alias grep="rg"
+
+# Ripgrep alias for convenience
+alias grep="rg"
+
+# Ripgrep alias for convenience
+alias grep="rg"
+
+# Ripgrep alias for convenience
+alias grep="rg"
+
+# Ripgrep alias for convenience
+alias grep="rg"
+
+# Ripgrep alias for convenience
+alias grep="rg"
+
+# Ripgrep alias for convenience
+alias grep="rg"
+
+# Ripgrep alias for convenience
+alias grep="rg"
+
+# Ripgrep alias for convenience
+alias grep="rg"
+
+# Ripgrep alias for convenience
+alias grep="rg"
+
+# Ripgrep alias for convenience
+alias grep="rg"
+
+# Ripgrep alias for convenience
+alias grep="rg"

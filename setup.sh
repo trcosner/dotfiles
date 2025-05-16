@@ -24,6 +24,8 @@ chmod +x \
 	check_ripgrep.sh \
   check_nvim.sh \
   check_lazygit.sh \
+  check_raycast.sh \
+  check_hyperkey.sh \
   || print_error
 
 ./check_xcode.sh
@@ -43,6 +45,8 @@ chmod +x \
 ./check_ripgrep.sh
 ./check_nvim.sh
 ./check_lazygit.sh
+./check_raycast.sh
+./check_hyperkey.sh
 
 print_success "Initial setup complete!"
 
