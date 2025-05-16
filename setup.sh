@@ -21,8 +21,10 @@ chmod +x \
 	check_powerlevel10k.sh \
 	check_eza.sh \
 	check_zoxide.sh \
-	check_nvim.sh \
-	|| print_error
+	check_ripgrep.sh \
+  check_nvim.sh \
+  check_lazygit.sh \
+  || print_error
 
 ./check_xcode.sh
 ./check_homebrew.sh
@@ -38,7 +40,9 @@ chmod +x \
 ./check_powerlevel10k.sh
 ./check_eza.sh
 ./check_zoxide.sh
+./check_ripgrep.sh
 ./check_nvim.sh
+./check_lazygit.sh
 
 print_success "Initial setup complete!"
 

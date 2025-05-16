@@ -138,3 +138,12 @@ fi
 if [ -f "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]; then
   source "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 fi
+
+# Ripgrep alias for convenience
+alias grep="rg"
+
+# Ripgrep alias for convenience
+alias grep="rg"
+
+# Ripgrep alias for convenience
+alias grep="rg"

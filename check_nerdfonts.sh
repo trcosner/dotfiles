@@ -20,7 +20,11 @@ fi
 print_success "Checking for Hasklug Nerd Font..."
 if fc-list | grep -qi "Hack Nerd Font"; then
   print_success "Hasklug Nerd Font already installed."
-else
+
+
+
+
+ else
   print_success "Hasklug Nerd Font not found. Installing via Homebrew..."
   if brew install --cask font-hack-nerd-font; then
     print_success "Hasklug Nerd Font successfully installed."
