@@ -138,4 +138,10 @@ SSH_OUTPUT=$(ssh -T git@github.com 2>&1)
 if echo "$SSH_OUTPUT" | grep -q "successfully authenticated"; then
   print_success "SSH connection to GitHub successful!"
 else
-  print_error "Failed to connect to GitHub via SSH. Output was_
+  print_error "Failed to connect to GitHub via SSH. Output was:"
+  print_error "$SSH_OUTPUT"
+  print_error "Please check your SSH key configuration and try again."
+  exit 1
+fi
+
+print_success "GitHub SSH setup completed successfully!"

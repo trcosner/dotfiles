@@ -139,87 +139,19 @@ if [ -f "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.
   source "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 fi
 
-# Ripgrep alias for convenience
-alias grep="rg"
-
-# Ripgrep alias for convenience
-alias grep="rg"
-
-# Ripgrep alias for convenience
-alias grep="rg"
-
-# Ripgrep alias for convenience
-alias grep="rg"
-
-# Ripgrep alias for convenience
-alias grep="rg"
-
-# Ripgrep alias for convenience
-alias grep="rg"
-
-# Ripgrep alias for convenience
-alias grep="rg"
-
-# Ripgrep alias for convenience
-alias grep="rg"
-
-# Ripgrep alias for convenience
-alias grep="rg"
-
-# Ripgrep alias for convenience
-alias grep="rg"
-
-# Ripgrep alias for convenience
-alias grep="rg"
-
-# Ripgrep alias for convenience
-alias grep="rg"
-
-# Ripgrep alias for convenience
-alias grep="rg"
-
-# Ripgrep alias for convenience
-alias grep="rg"
-
-# Ripgrep alias for convenience
-alias grep="rg"
-
-# Ripgrep alias for convenience
-alias grep="rg"
-
-# Ripgrep alias for convenience
-alias grep="rg"
-
-# Ripgrep alias for convenience
-alias grep="rg"
-
-# Ripgrep alias for convenience
-alias grep="rg"
-
-# Ripgrep alias for convenience
-alias grep="rg"
-
-# Ripgrep alias for convenience
-alias grep="rg"
 eval "$(starship init zsh)"
 
 # Ripgrep alias for convenience
 alias grep="rg"
 
-# Ripgrep alias for convenience
-alias grep="rg"
 
-# Ripgrep alias for convenience
-alias grep="rg"
-
-# Ripgrep alias for convenience
-alias grep="rg"
-
-# Ripgrep alias for convenience
-alias grep="rg"
-
-# Ripgrep alias for convenience
-alias grep="rg"
-
-# Ripgrep alias for convenience
-alias grep="rg"
+# Yazi config
+export EDITOR="nvim"
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}

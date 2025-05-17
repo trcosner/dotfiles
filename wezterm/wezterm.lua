@@ -1,45 +1,56 @@
 function file_exists(name)
-  local f = io.open(name, "r")
-  if f then
-    f:close()
-    return true
-  end
-  return false
+	local f = io.open(name, "r")
+	if f then
+		f:close()
+		return true
+	end
+	return false
 end
 
 -- Dynamically find the correct Zsh path
 function find_zsh()
-  local paths = {
-    "/opt/homebrew/bin/zsh",  -- Apple Silicon Homebrew
-    "/usr/local/bin/zsh",     -- Intel Mac Homebrew
-    "/bin/zsh",               -- System Zsh
-  }
+	local paths = {
+		"/opt/homebrew/bin/zsh", -- Apple Silicon Homebrew
+		"/usr/local/bin/zsh", -- Intel Mac Homebrew
+		"/bin/zsh", -- System Zsh
+	}
 
-  for _, path in ipairs(paths) do
-    if file_exists(path) then
-      return path
-    end
-  end
-  return "/bin/zsh"  -- Fallback to system Zsh if not found
+	for _, path in ipairs(paths) do
+		if file_exists(path) then
+			return path
+		end
+	end
+	return "/bin/zsh" -- Fallback to system Zsh if not found
 end
 
-local wezterm = require 'wezterm'
+local wezterm = require("wezterm")
+local act = wezterm.action
 
 local config = wezterm.config_builder()
-config.font=wezterm.font("Hasklug Nerd Font")
+config.font = wezterm.font("Hasklug Nerd Font")
 config.font_size = 19
 config.enable_tab_bar = false
 config.launch_menu = {
-    {label="Zsh", args={find_zsh(), "-l"}},
-    {label="Bash", args={"/bin/bash", "-l"}},
-    {label="Neovim", args={"nvim"}},
-    {label="Htop", args={"htop"}},
-  }
-config.default_prog = {find_zsh(), "-l"}
+	{ label = "Zsh", args = { find_zsh(), "-l" } },
+	{ label = "Bash", args = { "/bin/bash", "-l" } },
+	{ label = "Neovim", args = { "nvim" } },
+	{ label = "Htop", args = { "htop" } },
+}
+config.default_prog = { find_zsh(), "-l" }
 config.window_decorations = "RESIZE"
 config.window_background_opacity = 0.9
 config.macos_window_background_blur = 10
-
+config.keys = {
+	-- Clears only the scrollback and leaves the viewport intact.
+	-- You won't see a difference in what is on screen, you just won't
+	-- be able to scroll back until you've output more stuff on screen.
+	-- This is the default behavior.
+	{
+		key = "K",
+		mods = "CMD",
+		action = act.ClearScrollback("ScrollbackAndViewport"),
+	},
+}
 config.colors = {
 	foreground = "#CBE0F0",
 	background = "#011423",

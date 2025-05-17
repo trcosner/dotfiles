@@ -28,6 +28,16 @@ chmod +x \
   check_hyperkey.sh \
   check_starship.sh \
   check_tmux.sh \
+  check_ffmpeg.sh \
+  check_7zip.sh \
+  check_jq.sh \
+  check_poppler.sh \
+  check_fd.sh \
+  check_fzf.sh \
+  check_resvg.sh \
+  check_imagemagick.sh \
+  check_xsel.sh \
+  check_yazi.sh \
   || print_error
 
 ./check_xcode.sh
@@ -51,6 +61,15 @@ chmod +x \
 ./check_hyperkey.sh
 ./check_starship.sh
 ./check_tmux.sh
-
+./check_ffmpeg.sh
+./check_7zip.sh
+./check_jq.sh
+./check_poppler.sh
+./check_fd.sh
+./check_fzf.sh
+./check_resvg.sh
+./check_imagemagick.sh
+./check_xsel.sh
+./check_yazi.sh
 print_success "Initial setup complete!"
 

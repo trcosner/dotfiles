@@ -22,19 +22,6 @@ fi
 
 print_success "Updating .zshrc for Ripgrep alias..."
 
-# Check if .zshrc already includes Ripgrep alias
-if ! grep -q "alias rg" ~/.zshrc; then
-  print_success "Adding Ripgrep alias to .zshrc..."
-  {
-    echo ''
-    echo '# Ripgrep alias for convenience'
-    echo 'alias grep="rg"'
-  } >> ~/.zshrc
-  print_success "Ripgrep alias added to .zshrc."
-else
-  print_success "Ripgrep alias already configured in .zshrc."
-fi
-
 print_success "Reloading .zshrc to apply changes..."
 zsh -c "source ~/.zshrc"
 
