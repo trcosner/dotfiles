@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# FelixKratz/borders config with Tokyo Night Teal (active) and dark blue (inactive)
+
+options=(
+  style=round
+  width=4.0
+  radius=6.0
+  gap=4
+  hidpi=on
+  only_active=on
+  hide_on_fullscreen=on
+
+  # Colors
+  active_color=0xff4fd6be    # Tokyo Night teal
+  inactive_color=0xff394b70  # Tokyo Night dark blue
+)
+
+borders "${options[@]}"
+

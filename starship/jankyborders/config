@@ -1,0 +1,26 @@
+# ~/.dotfiles/jankyborders/config
+
+# Enable borders
+enabled=1
+
+# Border color in RGBA (Tokyo Night Teal: #7dcfff)
+color=125,207,255,255
+
+# Border width in pixels
+width=2
+
+# Corner radius
+radius=4
+
+# Highlight color for active window (Tokyo Night Orange: #ff9e64)
+active_color=255,158,100,255
+
+# Gap around windows
+gap=4
+
+# Only show border on focused window
+only_active=1
+
+# Hide border when fullscreen
+hide_on_fullscreen=1
+
