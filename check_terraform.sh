@@ -4,21 +4,30 @@ set -e
 
 source ./utils.sh
 
-print_success "Checking for Terraform..."
+verify_homebrew_installed
+
+print_info "Checking for Terraform..."
 if ! command -v terraform &> /dev/null; then
-  print_success "Terraform not found. Installing via Homebrew..."
-  brew install terraform || print_error "Failed to install Terraform."
+  print_info "Terraform not found. Installing via Homebrew..."
+  brew install terraform || {
+    print_error "Failed to install Terraform."
+    exit 1
+  }
+  print_success "Terraform installed successfully."
 else
   print_success "Terraform already installed."
 fi
 
-print_success "Verifying Terraform installation..."
-terraform_version=$(terraform version | head -n 1)
+# Verify installation
+print_info "Verifying Terraform installation..."
+terraform_version=$(terraform version 2>/dev/null | head -n 1)
 
 if [ -n "$terraform_version" ]; then
   print_success "Terraform version: $terraform_version"
 else
   print_error "Failed to verify Terraform installation."
+  exit 1
 fi
 
 print_success "Terraform setup complete!"
+

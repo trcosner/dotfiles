@@ -4,24 +4,26 @@ set -e
 
 source ./utils.sh
 
-print_success "Checking for Zsh..."
+verify_homebrew_installed
+
+print_info "Checking for Zsh..."
 # Check if Zsh is installed via Homebrew
 if [ -x "/opt/homebrew/bin/zsh" ] || [ -x "/usr/local/bin/zsh" ]; then
-  echo "Zsh installed via Homebrew."
+  print_success "Zsh installed via Homebrew."
 else
-  echo "Zsh not found via Homebrew. Installing with Homebrew..."
-  brew install zsh || echo "Error: Failed to install Zsh."
+  print_warning "Zsh not found via Homebrew. Installing with Homebrew..."
+  brew install zsh || print_error "Failed to install Zsh."
 fi
 
 # Add Homebrew Zsh to /etc/shells if not present
 if ! grep -q "/bin/zsh" /etc/shells; then
-  print_success "Adding Homebrew Zsh to /etc/shells..."
+  print_info "Adding Homebrew Zsh to /etc/shells..."
   echo "/bin/zsh" | sudo tee -a /etc/shells
 fi
 
 # Change default shell to Homebrew Zsh
 if [ "$SHELL" != "/bin/zsh" ]; then
-  print_success "Changing default shell to Homebrew Zsh..."
+  print_info "Changing default shell to Homebrew Zsh..."
   chsh -s /bin/zsh
 fi
 
@@ -31,10 +33,10 @@ if [ ! -d "$ZSH_CONFIG_DIR" ]; then
   mkdir -p "$ZSH_CONFIG_DIR"
 fi
 
-print_success "Symlinking Zsh configuration..."
+print_info "Symlinking Zsh configuration..."
 ln -sf "$ZSH_CONFIG_DIR/.zshrc" "$HOME/.zshrc"
 
-print_success "Installing zsh-autosuggestions and zsh-syntax-highlighting..."
+print_info "Installing zsh-autosuggestions and zsh-syntax-highlighting..."
 
 # Install zsh-autosuggestions
 if ! brew list zsh-autosuggestions &> /dev/null; then
@@ -49,6 +51,7 @@ else
 fi
 
 # Install zsh-syntax-highlighting
+print_info "installing zsh syntax highlighting"
 if ! brew list zsh-syntax-highlighting &> /dev/null; then
   if brew install zsh-syntax-highlighting; then
     print_success "zsh-syntax-highlighting installed successfully."
@@ -59,30 +62,6 @@ if ! brew list zsh-syntax-highlighting &> /dev/null; then
 else
   print_success "zsh-syntax-highlighting already installed."
 fi
-
-# Add plugin configuration to .zshrc
-ZSHRC_PATH="$HOME/.dotfiles/zsh/.zshrc"
-
-print_success "Adding plugin configuration to $ZSHRC_PATH..."
-if ! grep -q 'zsh-autosuggestions' "$ZSHRC_PATH"; then
-  echo 'if [ -f "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]; then' >> "$ZSHRC_PATH"
-  echo '  source "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"' >> "$ZSHRC_PATH"
-  echo 'fi' >> "$ZSHRC_PATH"
-  print_success "Added zsh-autosuggestions to $ZSHRC_PATH."
-else
-  print_success "zsh-autosuggestions already configured in $ZSHRC_PATH."
-fi
-
-if ! grep -q 'zsh-syntax-highlighting' "$ZSHRC_PATH"; then
-  echo 'if [ -f "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]; then' >> "$ZSHRC_PATH"
-  echo '  source "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"' >> "$ZSHRC_PATH"
-  echo 'fi' >> "$ZSHRC_PATH"
-  print_success "Added zsh-syntax-highlighting to $ZSHRC_PATH."
-else
-  print_success "zsh-syntax-highlighting already configured in $ZSHRC_PATH."
-fi
-
-print_success "Plugin setup complete! Restart your terminal or run 'exec zsh' to apply changes."
 
 print_success "Zsh setup complete!"
 

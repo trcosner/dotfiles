@@ -4,11 +4,19 @@ set -e
 
 source ./utils.sh
 
-print_success "Checking for kubectl"
+verify_homebrew_installed
+
+print_info "Checking for kubectl..."
 if ! command -v kubectl &> /dev/null; then
-    print_success "kubectl not found. Installing via Homebrew..."
-    brew install kubectl || print_error "Failed to install kubectl."
+  print_info "kubectl not found. Installing via Homebrew..."
+  brew install kubectl || {
+    print_error "Failed to install kubectl."
+    exit 1
+  }
+  print_success "kubectl installed successfully."
 else
-    print_success "kubectl already installed."
+  print_success "kubectl already installed."
 fi
+
 print_success "kubectl setup complete!"
+

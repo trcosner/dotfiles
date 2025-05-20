@@ -4,45 +4,58 @@ set -e
 
 source ./utils.sh
 
-print_success "Checking for Yazi..."
+verify_homebrew_installed
+
+print_info "Checking for Yazi..."
 if ! command -v yazi &> /dev/null; then
-  print_success "Yazi not found. Installing via Homebrew..."
-  brew install yazi || print_error "Failed to install Yazi."
+  print_info "Yazi not found. Installing via Homebrew..."
+  brew install yazi || {
+    print_error "Failed to install Yazi."
+    exit 1
+  }
+  print_success "Yazi installed successfully."
 else
   print_success "Yazi already installed."
 fi
 
-print_success "Verifying Yazi installation..."
-yazi_version=$(yazi --version)
+# Verify version
+print_info "Verifying Yazi installation..."
+yazi_version=$(yazi --version 2>/dev/null || true)
 
 if [ -n "$yazi_version" ]; then
   print_success "Yazi version: $yazi_version"
 else
   print_error "Failed to verify Yazi installation."
+  exit 1
 fi
 
-print_success "Setting up Yazi configuration..."
-
-# Yazi config directory
+# Config setup
+DOTFILES_YAZI_DIR="$HOME/.dotfiles/yazi"
 CONFIG_DIR="$HOME/.config/yazi"
 
-# Create config directory if it doesn't exist
-if [ ! -d "$CONFIG_DIR" ]; then
-  print_success "Creating Yazi configuration directory..."
-  mkdir -p "$CONFIG_DIR"
-fi
+print_info "Setting up Yazi configuration..."
+mkdir -p "$CONFIG_DIR"
 
-# Symlink configuration files
 for file in yazi.toml keymap.toml theme.toml; do
-  if [ -L "$CONFIG_DIR/$file" ]; then
-    print_success "Removing existing symlink for $file..."
-    rm "$CONFIG_DIR/$file"
-  elif [ -f "$CONFIG_DIR/$file" ]; then
+  target="$CONFIG_DIR/$file"
+  source="$DOTFILES_YAZI_DIR/$file"
+
+  if [ -L "$target" ]; then
+    current_link=$(readlink "$target")
+    if [ "$current_link" = "$source" ]; then
+      print_success "$file symlink already correct."
+      continue
+    else
+      print_info "Updating incorrect symlink for $file..."
+      rm "$target"
+    fi
+  elif [ -f "$target" ]; then
     print_warning "$file exists and is not a symlink. Backing up to $file.bak..."
-    mv "$CONFIG_DIR/$file" "$CONFIG_DIR/$file.bak"
+    mv "$target" "$target.bak"
   fi
-  print_success "Creating symlink for $file..."
-  ln -s "$HOME/.dotfiles/yazi/$file" "$CONFIG_DIR/$file"
+
+  ln -s "$source" "$target"
+  print_success "Symlinked $file → $source"
 done
 
 print_success "Yazi setup complete!"

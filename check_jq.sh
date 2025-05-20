@@ -4,11 +4,16 @@ set -e
 
 source ./utils.sh
 
-print_success "Checking for JQ..."
+verify_homebrew_installed
+
+print_info "Checking for jq..."
 if ! command -v jq &> /dev/null; then
-  print_success "JQ not found. Installing via Homebrew..."
-  brew install jq || print_error "Failed to install JQ."
+  print_info "jq not found. Installing via Homebrew..."
+  brew install jq || print_error "Failed to install jq."
+  print_success "jq successfully installed."
+  jq_version=$(jq --version)
+  print_success "jq version: $jq_version"
 else
-  print_success "JQ already installed."
+  print_success "jq already installed."
 fi
 

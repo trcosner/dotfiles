@@ -1,0 +1,8 @@
+{
+  "mappings": {
+    "caps_lock": {
+      "hyper": true,
+      "modifiers": ["command", "control", "option", "shift"]
+    }
+  }
+}

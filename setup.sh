@@ -1,15 +1,15 @@
-#!/usr/bin/env bas#!/usr/bin/env bash
+#!/usr/bin/env bash
 
 set -e
 
 source ./utils.sh
 
-print_success "Ensuring sub-scripts are executable"
+print_info "Ensuring sub-scripts are executable"
 chmod +x \
 	utils.sh \
 	check_xcode.sh \
 	check_homebrew.sh \
-	check_zsh.sh \
+  check_zsh.sh \
 	check_nerdfonts.sh \
 	check_powerlevel10k.sh \
 	check_starship.sh \
@@ -39,7 +39,7 @@ chmod +x \
 	check_xsel.sh \
 	check_raycast.sh \
 	check_yazi.sh \
-	|| print_error
+	# || print_error
 
 # Core Dependencies
 ./check_xcode.sh             # Xcode CLI tools (compilers, headers)

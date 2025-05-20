@@ -4,9 +4,11 @@ set -e  # Exit on error
 
 source ./utils.sh
 
+verify_homebrew_installed
+
 # Step 2: Install WezTerm using Homebrew if not already installed
 if ! brew list --cask wezterm &>/dev/null; then
-  print_success  "Installing WezTerm..."
+  print_info  "Installing WezTerm..."
   if brew install --cask wezterm; then
     print_success "WezTerm installed successfully."
   else
@@ -19,12 +21,6 @@ fi
 
 # Step 3: Ensure the dotfiles directory structure exists
 DOTFILES_DIR="$HOME/.dotfiles/wezterm"
-if [ ! -d "$DOTFILES_DIR" ]; then
-  print_success "Creating WezTerm config directory: $DOTFILES_DIR"
-  mkdir -p "$DOTFILES_DIR"
-else
-  print_success "WezTerm config directory already exists."
-fi
 
 # Step 4: Copy the Lua configuration file from your dotfiles repository
 CONFIG_FILE="$DOTFILES_DIR/wezterm.lua"
@@ -37,7 +33,7 @@ fi
 
 # Step 5: Create a symlink to the custom configuration in the WezTerm expected location
 if [ ! -L "$HOME/.wezterm.lua" ]; then
-  print_success "Creating symlink from $DOTFILES_DIR/wezterm.lua to ~/.wezterm.lua"
+  print_info "Creating symlink from $DOTFILES_DIR/wezterm.lua to ~/.wezterm.lua"
   ln -sf "$CONFIG_FILE" "$HOME/.wezterm.lua"
   print_success "Symlink created."
 else
@@ -45,7 +41,7 @@ else
 fi
 
 # Step 6: Launch WezTerm to verify
-print_success "Launching WezTerm..."
+print_info "Launching WezTerm..."
 open -a wezterm || print_error "Failed to launch WezTerm."
 
 print_success "WezTerm setup complete!"
