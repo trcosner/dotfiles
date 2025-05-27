@@ -44,13 +44,7 @@ else
   print_success "TPM already installed."
 fi
 
-# --- Reload Tmux if running ---
-if tmux ls &> /dev/null; then
-  tmux source-file "$TARGET_CONFIG_FILE"
-  print_success "Tmux config reloaded."
-else
-  print_info "Tmux is not currently running."
-fi
+print_info "Skipping tmux config reload — run 'tmux' and press <prefix> + I to finish setup."
 
 print_success "Tmux and TPM setup complete!"
 
