@@ -149,3 +149,6 @@ function y() {
   rm -f -- "$tmp"
 }
 
+
+# Created by `pipx` on 2025-05-29 20:34:20
+export PATH="$PATH:/Users/tyler/.local/bin"

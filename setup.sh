@@ -39,6 +39,7 @@ chmod +x \
 	check_xsel.sh \
 	check_raycast.sh \
 	check_yazi.sh \
+  check_python.sh \
 	# || print_error
 
 # Core Dependencies
@@ -68,7 +69,7 @@ chmod +x \
 ./check_lazygit.sh           # TUI Git interface
 ./check_tmux.sh              # Terminal multiplexer
 ./check_nvim.sh              # Code editor
-
+./check_python.sh            # python installation
 # DevOps & Infra Tools
 ./check_docker.sh            # Container engine
 ./check_kubernetes.sh        # k8s CLI tools
