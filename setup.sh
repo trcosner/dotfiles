@@ -41,6 +41,7 @@ chmod +x \
 	check_yazi.sh \
   	check_python.sh \
   	check_aws.sh \
+	check_watch.sh \
 	# || print_error
 
 # Core Dependencies
@@ -71,6 +72,7 @@ chmod +x \
 ./check_tmux.sh              # Terminal multiplexer
 ./check_nvim.sh              # Code editor
 ./check_python.sh            # python installation
+./check_watch.sh             # Watch command execution
 # DevOps & Infra Tools
 ./check_docker.sh            # Container engine
 ./check_kubernetes.sh        # k8s CLI tools
