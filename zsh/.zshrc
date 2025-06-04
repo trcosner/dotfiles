@@ -149,6 +149,9 @@ function y() {
   rm -f -- "$tmp"
 }
 
+# vscode code command
+export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+
 
 # Created by `pipx` on 2025-05-29 20:34:20
 export PATH="$PATH:/Users/tyler/.local/bin"

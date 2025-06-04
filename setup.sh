@@ -39,7 +39,8 @@ chmod +x \
 	check_xsel.sh \
 	check_raycast.sh \
 	check_yazi.sh \
-  check_python.sh \
+  	check_python.sh \
+  	check_aws.sh \
 	# || print_error
 
 # Core Dependencies
@@ -75,6 +76,7 @@ chmod +x \
 ./check_kubernetes.sh        # k8s CLI tools
 ./check_skaffold.sh          # Local k8s build/deploy tool
 ./check_terraform.sh         # Infrastructure as code
+./check_aws.sh               # AWS CLI tools
 
 # Media & Format Utilities
 ./check_ffmpeg.sh            # Media conversion

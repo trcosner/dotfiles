@@ -1,1 +1,10 @@
 .env
+# AWS credentials (never commit real credentials)
+config/aws/credentials
+*.pem
+*.key
+!*.key.template
+
+# AWS session tokens and temporary files
+.aws-session-token
+aws-session-*
