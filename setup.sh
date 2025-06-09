@@ -29,6 +29,7 @@ chmod +x \
 	check_nvim.sh \
 	check_docker.sh \
 	check_kubernetes.sh \
+	check_helm.sh \
 	check_skaffold.sh \
 	check_terraform.sh \
 	check_ffmpeg.sh \
@@ -42,6 +43,7 @@ chmod +x \
   	check_python.sh \
   	check_aws.sh \
 	check_watch.sh \
+	check_go.sh \
 	# || print_error
 
 # Core Dependencies
@@ -73,9 +75,11 @@ chmod +x \
 ./check_nvim.sh              # Code editor
 ./check_python.sh            # python installation
 ./check_watch.sh             # Watch command execution
+./check_go.sh                # Go programming language
 # DevOps & Infra Tools
 ./check_docker.sh            # Container engine
 ./check_kubernetes.sh        # k8s CLI tools
+./check_helm.sh              # Kubernetes package manager
 ./check_skaffold.sh          # Local k8s build/deploy tool
 ./check_terraform.sh         # Infrastructure as code
 ./check_aws.sh               # AWS CLI tools

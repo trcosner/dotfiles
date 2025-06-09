@@ -52,4 +52,27 @@ else
   exit 1
 fi
 
-print_success "Terraform and Terragrunt setup complete!"
+# Install terraform-docs
+print_info "Checking for terraform-docs..."
+if ! command -v terraform-docs &> /dev/null; then
+  print_info "terraform-docs not found. Installing via Homebrew..."
+  brew install terraform-docs || {
+    print_error "Failed to install terraform-docs."
+    exit 1
+  }
+  print_success "terraform-docs installed successfully."
+else
+  print_success "terraform-docs already installed."
+fi
+
+# Verify terraform-docs installation
+print_info "Verifying terraform-docs installation..."
+terraform_docs_version=$(terraform-docs version 2>/dev/null)
+if [ -n "$terraform_docs_version" ]; then
+  print_success "terraform-docs version: $terraform_docs_version"
+else
+  print_error "Failed to verify terraform-docs installation."
+  exit 1
+fi
+
+print_success "Terraform, Terragrunt, and terraform-docs setup complete!"

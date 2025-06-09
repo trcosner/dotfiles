@@ -16,6 +16,10 @@ export PS1="%n@%m %1~ %# "
 export PATH="/opt/homebrew/opt/p7zip/bin:$PATH"
 export PATH="/opt/homebrew/bin:$PATH"
 
+# Go setup
+export GOPATH="$HOME/go"
+export PATH="$GOPATH/bin:$PATH"
+
 # NVM setup
 export NVM_DIR="$HOME/.nvm"
 [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && . "/opt/homebrew/opt/nvm/nvm.sh"
